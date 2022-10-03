@@ -6,7 +6,7 @@ CFLAGS += -I "inc"
 CHECK_FLAGS := $(shell pkg-config --cflags --libs check)
 CC = gcc
 
-SRCS = io.c
+SRCS = io.c theatre_utils.c
 OBJS = $(SRCS:%.c=out/%.o)
 
 T_SRCS = check_io.c

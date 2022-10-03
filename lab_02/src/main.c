@@ -4,6 +4,7 @@
 #include "../inc/theatre.h"
 #include "../inc/errors.h"
 #include "../inc/io.h"
+#include "../inc/theatre_utils.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +23,6 @@ int main(int argc, char *argv[])
         print_theatre(theatre);
     else
         printf("rc: %d\n", rc);
-    free(theatre);
+    free_theatre(theatre);
     return rc;
 }
