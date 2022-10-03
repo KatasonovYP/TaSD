@@ -257,6 +257,7 @@ int prompt_int(FILE *stream, char *prompt)
         number = -1;
     else if (sscanf(buff, "%d", &number) != 1)
         number = -1;
+    free(buff);
     return number;
 
 }
