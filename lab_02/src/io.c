@@ -7,13 +7,13 @@
 theatre_t *input_theatre(FILE *stream)
 {
     theatre_t *theatre = malloc(sizeof(theatre_t));
-    theatre->name = prompt_str(stream, "Введите название театра: ");
-    theatre->performance = prompt_str(stream, "Введите название спектакля: ");
-    theatre->producer = prompt_str(stream, "Введите имя режиссера: ");
+    theatre->name = prompt_str(stream, "Input theatre: ");
+    theatre->performance = prompt_str(stream, "Input performance: ");
+    theatre->producer = prompt_str(stream, "Input producer: ");
     theatre->price_range = input_price_range(stream);
     theatre->type_id = prompt_int(
         stream,
-        "Введите тип спектакля (0 - детский, 1 - взрослый, 2 - музыкальный): ");
+        "Input performance type (0 - kid, 1 - adult, 2 - music): ");
     theatre->type = input_performance_type(stream, theatre->type_id);
     return theatre;
 }
@@ -21,8 +21,8 @@ theatre_t *input_theatre(FILE *stream)
 price_range_t *input_price_range(FILE *stream)
 {
     price_range_t *price = malloc(sizeof(price_range_t));
-    price->min = prompt_int(stream, "Введите минимальную цену: ");
-    price->max = prompt_int(stream, "Введите максимальную цену: ");
+    price->min = prompt_int(stream, "Input minimal price: ");
+    price->max = prompt_int(stream, "Input maximal price: ");
     return price;
 }
 
@@ -41,8 +41,8 @@ performance_t *input_performance_type(FILE *stream, type_id_t type_id)
 kid_t *input_kid(FILE *stream)
 {
     kid_t *kid = malloc(sizeof(kid_t));
-    kid->age = prompt_int(stream, "Введите, для какого возраста постановка: ");
-    kid->genre = prompt_int(stream, "Введите тип постановки (0 - пьеса, 1 - сказка): ");
+    kid->age = prompt_int(stream, "Input age limit: ");
+    kid->genre = prompt_int(stream, "Input genre(0 - piece, 1 - fairy): ");
     return kid;
 }
 
@@ -51,17 +51,17 @@ adult_t *input_adult(FILE *stream)
     adult_t *adult = malloc(sizeof(adult_t));
     adult->genre = prompt_int(
         stream,
-        "Введите тип постановки (0 - пьеса, 1 - драма, 2 - комедия): ");
+        "Input genre(0 - piece, 1 - drama, 2 - comedy): ");
     return adult;
 }
 
 music_t *input_music(FILE *stream)
 {
     music_t *music = malloc(sizeof(music_t));
-    music->composer = prompt_str(stream, "Введите композитора: ");
-    music->country = prompt_str(stream, "Введите страну: ");
-    music->min_age = prompt_int(stream, "Введите минимальный возраст: ");
-    music->duration = prompt_int(stream, "Введите продолжительность: ");
+    music->composer = prompt_str(stream, "Input composer: ");
+    music->country = prompt_str(stream, "Input country: ");
+    music->min_age = prompt_int(stream, "Input age limit: ");
+    music->duration = prompt_int(stream, "Input duration: ");
     return music;
 }
 
