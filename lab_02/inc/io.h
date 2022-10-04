@@ -1,6 +1,14 @@
 #ifndef __IO_H__
 #define __IO_H__
 
+#define FORMAT " %-*s |"
+#define FORMAT_NUMBER " %-*d |"
+
+#define SHORT 5
+#define NORMAL 10
+#define LONG 15
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

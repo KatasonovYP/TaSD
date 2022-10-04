@@ -1,4 +1,4 @@
-CFLAGS = -std=c99 -Wall -Werror -Wpedantic -Wextra 
+CFLAGS = -std=c11 -Wall -Werror -Wpedantic -Wextra 
 CFLAGS += -Wfloat-equal -Wfloat-conversion -Wvla -fdiagnostics-color=always
 CFLAGS += -I "inc"
 
@@ -6,7 +6,7 @@ CFLAGS += -I "inc"
 CHECK_FLAGS := $(shell pkg-config --cflags --libs check)
 CC = gcc
 
-SRCS = io.c theatre_utils.c
+SRCS = io.c theatre_utils.c table_utils.c
 OBJS = $(SRCS:%.c=out/%.o)
 
 T_SRCS = check_io.c

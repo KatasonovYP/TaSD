@@ -2,7 +2,7 @@
  #define _POSIX_C_SOURCE 200809L
 #include "../inc/io.h"
 
-#define N 50
+#define N 15
 
 theatre_t *input_theatre(FILE *stream)
 {
@@ -67,18 +67,19 @@ music_t *input_music(FILE *stream)
 
 void print_theatre(theatre_t *theatre)
 {
-    printf("Театр : %s\n", theatre->name);
-    printf("Спектакль : %s\n", theatre->performance);
-    printf("Режиссер : %s\n", theatre->producer);
-    printf("Диапазон цен : %dр - %dр\n",
-           theatre->price_range->min,
-           theatre->price_range->max);
+    printf("|");
+    printf(FORMAT, LONG, theatre->name);
+    printf(FORMAT, LONG, theatre->performance);
+    printf(FORMAT, LONG, theatre->producer);
+    printf(FORMAT_NUMBER, NORMAL, theatre->price_range->min);
+    printf(FORMAT_NUMBER, NORMAL, theatre->price_range->max);
     print_type(theatre->type, theatre->type_id);
+    printf("\n");
 }
 
 void print_type(performance_t *type, type_id_t type_id)
 {
-    printf("Тип спектакля: %s\n", get_type_performance(type_id));
+    printf(FORMAT, SHORT, get_type_performance(type_id));
     switch (type_id)
     {
     case kid:
@@ -94,21 +95,29 @@ void print_type(performance_t *type, type_id_t type_id)
 
 void print_kid(kid_t *kid)
 {
-    printf("Возраст: %d лет\n", kid->age);
-    printf("Жанр: %s\n", get_kid_genre(kid->genre));
+    printf(FORMAT, NORMAL, get_kid_genre(kid->genre));
+    printf(FORMAT_NUMBER, SHORT, kid->age);
+    printf(FORMAT, LONG, "-");
+    printf(FORMAT, NORMAL, "-");
+    printf(FORMAT, NORMAL, "-");
 }
 
 void print_adult(adult_t *adult)
 {
-    printf("Жанр: %s\n", get_adult_genre(adult->genre));
+    printf(FORMAT, NORMAL, get_adult_genre(adult->genre));
+    printf(FORMAT, SHORT, "-");
+    printf(FORMAT, LONG, "-");
+    printf(FORMAT, NORMAL, "-");
+    printf(FORMAT, NORMAL, "-");
 }
 
 void print_music(music_t *music)
 {
-    printf("Композитор: %s\n", music->composer);
-    printf("Страна: %s\n", music->country);
-    printf("Минимальный возраст: %d\n", music->min_age);
-    printf("Продолжительность: %d\n", music->duration);
+    printf(FORMAT, NORMAL, "-");
+    printf(FORMAT_NUMBER, SHORT, music->min_age);
+    printf(FORMAT, LONG, music->composer);
+    printf(FORMAT, NORMAL, music->country);
+    printf(FORMAT_NUMBER, NORMAL, music->duration);
 }
 
 char *get_type_performance(type_id_t type_id)

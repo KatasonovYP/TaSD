@@ -1,6 +1,10 @@
 #ifndef __THEATRE_H__
 #define __THEATRE_H__
 
+#define TABLE_SIZE 40
+
+typedef struct table table_t;
+typedef struct key key_t;
 typedef struct theatre theatre_t;
 typedef union performance performance_t;
 typedef struct price_range price_range_t;
@@ -68,6 +72,20 @@ struct theatre
     price_range_t *price_range;
     type_id_t type_id;
     performance_t *type;
+};
+
+struct key
+{
+    short id;
+    int *min_age;
+    int *duration;
+};
+
+struct table
+{
+    theatre_t **theatres;
+    key_t *keys;
+    int len;
 };
 
 #endif // #ifndef __THEATRE_H__

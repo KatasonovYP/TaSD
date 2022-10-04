@@ -25,4 +25,6 @@
 #define ERR_READ_MUSIC_MIN_AGE 112
 #define ERR_READ_MUSIC_DURATION 113
 
+#define ERR_TABLE_OVERFLOW 120
+
 #endif // #ifndef __ERRORS_H__

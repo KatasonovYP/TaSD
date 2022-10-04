@@ -5,6 +5,7 @@
 #include "../inc/errors.h"
 #include "../inc/io.h"
 #include "../inc/theatre_utils.h"
+#include "../inc/table_utils.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,13 +16,16 @@ int main(int argc, char *argv[])
         FILE *f = fopen(argv[1], "r");
         theatre = input_theatre(f);
         rc = is_correct_theatre(theatre);
+        table_t *table = init_table();
+        append(table, theatre);
+        append(table, input_theatre(f));
+        append(table, input_theatre(f));
+        print_table(table);
         fclose(f);
     }
     else
         rc = ERR_ARGS_COUNT;
-    if (rc == ERR_OK)
-        print_theatre(theatre);
-    else
+    if (rc)
         printf("rc: %d\n", rc);
     free_theatre(theatre);
     return rc;
