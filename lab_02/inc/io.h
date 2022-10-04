@@ -26,7 +26,6 @@ char *get_adult_genre(adult_genre_t genre);
 
 char *prompt_str(FILE *stream, char *prompt);
 int prompt_int(FILE *stream, char *prompt);
-char *strdup(const char *c);
 
 int is_correct_theatre(theatre_t *theatre);
 int is_correct_price(price_range_t *price);

@@ -1,3 +1,5 @@
+// #define _POSIX_SOURCE 1
+ #define _POSIX_C_SOURCE 200809L
 #include "../inc/io.h"
 
 #define N 50
@@ -260,12 +262,4 @@ int prompt_int(FILE *stream, char *prompt)
     free(buff);
     return number;
 
-}
-
-char *strdup(const char *c)
-{
-    char *dup = malloc(strlen(c) + 1);
-    if (dup != NULL)
-        strcpy(dup, c);
-    return dup;
 }
