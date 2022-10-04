@@ -114,11 +114,11 @@ char *get_type_performance(type_id_t type_id)
     switch (type_id)
     {
     case kid:
-        return "Детский";
+        return "kid";
     case adult:
-        return "Взрослый";
+        return "adult";
     case music:
-        return "музыкальный";
+        return "music";
     default:
         return NULL;
     }
@@ -129,9 +129,9 @@ char *get_kid_genre(kid_genre_t genre)
     switch (genre)
     {
     case kid_piece:
-        return "пьеса";
+        return "piece";
     case kid_fairy:
-        return "сказка";
+        return "fairy";
     default:
         return NULL;
     }
@@ -142,11 +142,11 @@ char *get_adult_genre(adult_genre_t genre)
     switch (genre)
     {
     case adult_piece:
-        return "пьеса";
+        return "piece";
     case adult_drama:
-        return "драма";
+        return "drama";
     case adult_comedy:
-        return "комедия";
+        return "comedy";
     default:
         return NULL;
     }
