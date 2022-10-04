@@ -1,4 +1,4 @@
-CFLAGS = -std=c11 -Wall -Werror -Wpedantic -Wextra 
+CFLAGS = -std=c99 -Wall -Werror -Wpedantic -Wextra 
 CFLAGS += -Wfloat-equal -Wfloat-conversion -Wvla -fdiagnostics-color=always
 CFLAGS += -I "inc"
 
@@ -6,11 +6,13 @@ CFLAGS += -I "inc"
 CHECK_FLAGS := $(shell pkg-config --cflags --libs check)
 CC = gcc
 
-SRCS = io.c theatre_utils.c table_utils.c
+SRCS := $(wildcard src/*.c)
+SRCS := $(filter-out main.c, $(SRCS:src/%.c=%.c))
 OBJS = $(SRCS:%.c=out/%.o)
 
-T_SRCS = check_io.c
-T_OBJS = $(T_SRCS:%.c=out/%.o)
+# SRCS := $(wildcard unit_tests/*.c)
+# SRCS := $(filter-out chack_main.c, $(SRCS:unit_tests/%.c=%.c))
+# T_OBJS = $(T_SRCS:%.c=out/%.o)
 
 SHELL = bash
 
@@ -44,8 +46,8 @@ T_DEPS = $(T_SRCS:%.c=out/%.d)
 $(C_DEPS) :
 $(T_DEPS) :
 
-include $(wildcard $(C_DEPS))
-include $(wildcard $(T_DEPS))
+# include $(wildcard $(C_DEPS))
+# include $(wildcard $(T_DEPS))
 
 .PHONY : clean release debug
 
