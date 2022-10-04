@@ -20,37 +20,3 @@ int append(table_t *table, theatre_t *theatre)
         table->theatres[(table->len)++] = theatre;
     return rc;
 }
-
-void print_table(table_t *table)
-{
-    print_header();
-    for (int i = 0; i < table->len; ++i)
-        print_theatre(table->theatres[i]);
-    print_line();
-}
-
-void print_header()
-{
-    print_line();
-    printf("|");
-    printf(FORMAT, LONG, "Theatre");
-    printf(FORMAT, LONG, "Performance");
-    printf(FORMAT, LONG, "Producer");
-    printf(FORMAT, NORMAL, "Min price");
-    printf(FORMAT, NORMAL, "Max price");
-    printf(FORMAT, SHORT, "Type");
-    printf(FORMAT, NORMAL, "Genre");
-    printf(FORMAT, SHORT, "Age");
-    printf(FORMAT, LONG, "Composer");
-    printf(FORMAT, NORMAL, "Country");
-    printf(FORMAT, NORMAL, "Duration");
-    puts("");
-    print_line();
-}
-
-void print_line()
-{
-    for (int i = 0; i < 154; ++i)
-        printf("=");
-    printf("\n");
-}

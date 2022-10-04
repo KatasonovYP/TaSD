@@ -36,3 +36,46 @@ void free_music(music_t *music)
     }
     free(music);
 }
+
+char *get_type_performance(type_id_t type_id)
+{
+    switch (type_id)
+    {
+    case kid:
+        return "kid";
+    case adult:
+        return "adult";
+    case music:
+        return "music";
+    default:
+        return NULL;
+    }
+}
+
+char *get_kid_genre(kid_genre_t genre)
+{
+    switch (genre)
+    {
+    case kid_piece:
+        return "piece";
+    case kid_fairy:
+        return "fairy";
+    default:
+        return NULL;
+    }
+}
+
+char *get_adult_genre(adult_genre_t genre)
+{
+    switch (genre)
+    {
+    case adult_piece:
+        return "piece";
+    case adult_drama:
+        return "drama";
+    case adult_comedy:
+        return "comedy";
+    default:
+        return NULL;
+    }
+}

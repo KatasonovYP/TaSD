@@ -14,12 +14,14 @@ int main(int argc, char *argv[])
     if (argc == 2)
     {
         FILE *f = fopen(argv[1], "r");
-        theatre = input_theatre(f);
-        rc = is_correct_theatre(theatre);
         table_t *table = init_table();
-        append(table, theatre);
-        append(table, input_theatre(f));
-        append(table, input_theatre(f));
+        while (!feof(f) && rc == ERR_OK)
+        {
+            theatre = input_theatre(f);
+            rc = is_correct_theatre(theatre);
+            if (rc == ERR_OK)
+                append(table, theatre);
+        }
         print_table(table);
         fclose(f);
     }

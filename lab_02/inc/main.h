@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../inc/io.h"
-#include "../inc/errors.h"
-#include "../inc/table_utils.h"
-#include "../inc/theatre.h"
-#include "../inc/theatre_utils.h"
+#include "io.h"
+#include "errors.h"
+#include "table_utils.h"
+#include "theatre.h"
+#include "theatre_utils.h"
 
 #endif // #ifndef __MAIN_H__
