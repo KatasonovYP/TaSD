@@ -2,7 +2,6 @@ CFLAGS = -std=c99 -Wall -Werror -Wpedantic -Wextra
 CFLAGS += -Wfloat-equal -Wfloat-conversion -Wvla -fdiagnostics-color=always
 CFLAGS += -I "inc"
 
-# CHECK_FLAGS = -lcheck_pic -lm -lsubunit
 CHECK_FLAGS := $(shell pkg-config --cflags --libs check)
 CC = gcc
 
@@ -22,7 +21,6 @@ app.exe : $(OBJS) out/main.o
 
 unit_tests.exe: $(T_OBJS) $(OBJS) out/check_main.o
 	$(CC) $^ -o $@ $(CHECK_FLAGS)
-# -pthread -lrt
 
 # Генерация объектных файлов
 out/%.o : src/%.c out/%.d
