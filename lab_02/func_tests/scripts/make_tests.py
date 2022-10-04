@@ -54,6 +54,7 @@ def write_test(test, mode, number):
     for stream in test.keys():
         test[stream] = format_str(test[stream], num, stdpath)
         if stream == 'label':
+            test[stream] += '\n'
             with open(PATH_README, 'a') as readme:
                 readme.write(test[stream])
         else:
@@ -65,7 +66,6 @@ def write_test(test, mode, number):
 def format_str(s, num, stdpath):
     s = to_str(s)
     s = s.format(num=num, std_path_in=stdpath, std_path_out=STD_OUT_ARG)
-    s += '\n'
     return s
 
 
