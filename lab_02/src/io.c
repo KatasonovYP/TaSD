@@ -177,3 +177,14 @@ void print_line()
         printf("=");
     printf("\n");
 }
+
+void print_menu()
+{
+    puts("1. Append theatre");
+    puts("2. Remove theatre by name");
+    puts("3. Print sorted table");
+    puts("4. Print sorted table with keys");
+    puts("5. Compare table sort and key sort");
+    puts("6. Compare qsort and bubble sort");
+    puts("0. Exit");
+}

@@ -36,4 +36,6 @@ void print_table(table_t *table);
 void print_header();
 void print_line();
 
+void print_menu();
+
 #endif // #ifndef __IO_H__

@@ -7,34 +7,58 @@
 #include "../inc/theatre_utils.h"
 #include "../inc/table_utils.h"
 
-int main(int argc, char *argv[])
+typedef enum action
+{
+    act_exit,
+    act_append,
+    act_remove,
+    act_sort_table,
+    act_sort_keys,
+    act_table_vs_key,
+    act_qsort_vs_bubble
+} action_t;
+
+int main(void)
 {
     int rc = ERR_OK;
-    theatre_t *theatre = NULL;
-    table_t *table = NULL;
-    if (argc == 2)
+    char *buff = NULL;
+    action_t action;
+    table_t *table = init_table();
+    do
     {
-        FILE *f = fopen(argv[1], "r");
-        table = init_table();
-        while (!feof(f) && rc == ERR_OK)
+        print_table(table);
+        print_menu();
+        action = prompt_int(stdin, "Input action: ");
+        switch (action)
         {
-            theatre = input_theatre(f);
-            rc = is_correct_theatre(theatre);
-            if (rc == ERR_OK)
-                append(table, theatre);
+        case act_append:
+            append(table, input_theatre(stdin));
+            break;
+        case act_remove:
+            buff = prompt_str(stdin, "Input name: ");
+            remove_elem(table, buff);
+            free(buff);
+            break;
+        case act_sort_table:
+            puts("TODO");
+            break;
+        case act_sort_keys:
+            puts("TODO");
+            break;
+        case act_table_vs_key:
+            puts("TODO");
+            break;
+        case act_qsort_vs_bubble:
+            puts("TODO");
+            break;
+        case act_exit:
+            puts("exit");
+            break;
+        default:
+            puts("Uncnown action!");
+            break;
         }
-        print_table(table);
-        qsort(table->theatres, table->len, sizeof(theatre_t **), compare_theatre);
-        print_table(table);
-        remove_elem(table, "Maliy");
-        print_table(table);
-        fclose(f);
-    }
-    else
-        rc = ERR_ARGS_COUNT;
-    if (rc)
-        printf("rc: %d\n", rc);
-    free_theatre(theatre);
+    } while (action);
     free_table(table);
     return rc;
 }
