@@ -32,3 +32,34 @@ int append(table_t *table, theatre_t *theatre)
         table->theatres[(table->len)++] = theatre;
     return rc;
 }
+
+int remove_elem(table_t *table, char *key)
+{
+    int rc = ERR_OK;
+    print_table(table);
+    theatre_t *key_theatre = malloc(sizeof(theatre_t));
+    key_theatre->name = key;
+    theatre_t **find = (theatre_t **)bsearch(
+        &key_theatre,
+        table->theatres,
+        table->len,
+        sizeof(theatre_t **),
+        compare_theatre);
+    if (find != NULL)
+    {
+        theatre_t **pe = table->theatres + table->len;
+        for (theatre_t **curr = find; curr < pe - 1; ++curr)
+            *curr = *(curr + 1);
+        --table->len;
+    }
+    else
+        rc = ERR_UNKNOWN;
+    return rc;
+}
+
+int compare_theatre(const void *first, const void *second)
+{
+    theatre_t *a = *(theatre_t **)first;
+    theatre_t *b = *(theatre_t **)second;
+    return strcmp(a->name, b->name);
+}

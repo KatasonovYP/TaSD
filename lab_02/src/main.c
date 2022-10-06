@@ -11,10 +11,11 @@ int main(int argc, char *argv[])
 {
     int rc = ERR_OK;
     theatre_t *theatre = NULL;
+    table_t *table = NULL;
     if (argc == 2)
     {
         FILE *f = fopen(argv[1], "r");
-        table_t *table = init_table();
+        table = init_table();
         while (!feof(f) && rc == ERR_OK)
         {
             theatre = input_theatre(f);
@@ -22,6 +23,10 @@ int main(int argc, char *argv[])
             if (rc == ERR_OK)
                 append(table, theatre);
         }
+        print_table(table);
+        qsort(table->theatres, table->len, sizeof(theatre_t **), compare_theatre);
+        print_table(table);
+        remove_elem(table, "Maliy");
         print_table(table);
         fclose(f);
     }
