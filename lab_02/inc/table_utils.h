@@ -8,6 +8,7 @@
 #include "theatre.h"
 
 table_t *init_table();
+void free_table(table_t *table);
 int append(table_t *table, theatre_t *theatre);
 
 #endif // #ifndef __TABLE_UTILS_H__

@@ -29,6 +29,6 @@ int main(int argc, char *argv[])
         rc = ERR_ARGS_COUNT;
     if (rc)
         printf("rc: %d\n", rc);
-    free_theatre(theatre);
+    free_table(table);
     return rc;
 }

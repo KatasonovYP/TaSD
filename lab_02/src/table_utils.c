@@ -3,12 +3,24 @@
 table_t *init_table()
 {
     table_t *table = malloc(sizeof(table_t));
-    table->theatres = malloc(sizeof(theatre_t *));
-    for (int i = 0; i < TABLE_SIZE; ++i)
-        table->theatres[i] = malloc(sizeof(theatre_t));
-    table->keys = malloc(sizeof(key_t));
+    table->theatres = malloc(sizeof(theatre_t **));
+    // for (int i = 0; i < TABLE_SIZE; ++i)
+    //     table->theatres[i] = malloc(sizeof(theatre_t));
+    table->keys = malloc(sizeof(key_t *));
     table->len = 0;
     return table;
+}
+
+void free_table(table_t *table)
+{
+    if (table)
+    {
+        for (int i = 0; i < table->len; ++i)
+            free_theatre(table->theatres[i]);
+        free(table->theatres);
+        free(table->keys);
+    }
+    free(table);
 }
 
 int append(table_t *table, theatre_t *theatre)
