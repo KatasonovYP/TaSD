@@ -36,7 +36,6 @@ int append(table_t *table, theatre_t *theatre)
 int remove_elem(table_t *table, char *key)
 {
     int rc = ERR_OK;
-    print_table(table);
     theatre_t *key_theatre = malloc(sizeof(theatre_t));
     key_theatre->name = key;
     theatre_t **find = (theatre_t **)bsearch(
@@ -48,10 +47,10 @@ int remove_elem(table_t *table, char *key)
     free(key_theatre);
     if (find != NULL)
     {
-        theatre_t **pe = table->theatres + table->len;
-        for (theatre_t **curr = find; curr < pe - 1; ++curr)
+        free_theatre(*find);
+        theatre_t **pe = table->theatres + table->len - 1;
+        for (theatre_t **curr = find; curr < pe; ++curr)
             *curr = *(curr + 1);
-        free_theatre(*pe);
         --table->len;
     }
     else
