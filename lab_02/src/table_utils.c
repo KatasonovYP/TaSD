@@ -3,10 +3,10 @@
 table_t *init_table()
 {
     table_t *table = malloc(sizeof(table_t));
-    table->theatres = malloc(sizeof(theatre_t **));
-    // for (int i = 0; i < TABLE_SIZE; ++i)
-    //     table->theatres[i] = malloc(sizeof(theatre_t));
-    table->keys = malloc(sizeof(key_t *));
+    table->theatres = malloc(TABLE_SIZE * sizeof(theatre_t *));
+    for (int i = 0; i < TABLE_SIZE; ++i)
+        table->theatres[i] = NULL;
+    table->keys = malloc(TABLE_SIZE * sizeof(key_t *));
     table->len = 0;
     return table;
 }
@@ -45,11 +45,13 @@ int remove_elem(table_t *table, char *key)
         table->len,
         sizeof(theatre_t **),
         compare_theatre);
+    free(key_theatre);
     if (find != NULL)
     {
         theatre_t **pe = table->theatres + table->len;
         for (theatre_t **curr = find; curr < pe - 1; ++curr)
             *curr = *(curr + 1);
+        free_theatre(*pe);
         --table->len;
     }
     else
