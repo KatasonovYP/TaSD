@@ -15,7 +15,8 @@ typedef enum action
     act_sort_table,
     act_sort_keys,
     act_table_vs_key,
-    act_qsort_vs_bubble
+    act_qsort_vs_bubble,
+    act_read_table
 } action_t;
 
 int main(void)
@@ -50,6 +51,11 @@ int main(void)
             break;
         case act_qsort_vs_bubble:
             puts("TODO");
+            break;
+        case act_read_table:
+            buff = prompt_str(stdin, "Input file path: ");
+            read_table(table, buff, &rc);
+            free(buff);
             break;
         case act_exit:
             puts("exit");

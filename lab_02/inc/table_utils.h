@@ -8,6 +8,7 @@
 #include "theatre.h"
 
 table_t *init_table();
+void read_table(table_t *table, char *path, int *rc);
 void free_table(table_t *table);
 int append(table_t *table, theatre_t *theatre);
 int remove_elem(table_t *table, char *key);

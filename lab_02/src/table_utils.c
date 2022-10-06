@@ -11,6 +11,21 @@ table_t *init_table()
     return table;
 }
 
+void read_table(table_t *table, char *path, int *rc)
+{
+    theatre_t *buff_theatre = NULL;
+    FILE *file = fopen(path, "r");
+    while (!feof(file))
+    {
+        buff_theatre = input_theatre(file);
+        *rc = is_correct_theatre(buff_theatre);
+        if (*rc != ERR_OK)
+            break;
+        append(table, buff_theatre);
+    }
+    fclose(file);
+}
+
 void free_table(table_t *table)
 {
     if (table)
@@ -35,6 +50,7 @@ int append(table_t *table, theatre_t *theatre)
 
 int remove_elem(table_t *table, char *key)
 {
+    // TODO qsort array
     int rc = ERR_OK;
     theatre_t *key_theatre = malloc(sizeof(theatre_t));
     key_theatre->name = key;
