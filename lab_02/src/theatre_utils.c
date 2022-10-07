@@ -79,3 +79,10 @@ char *get_adult_genre(adult_genre_t genre)
         return NULL;
     }
 }
+
+int compare_theatre(const void *first, const void *second)
+{
+    theatre_t *a = *(theatre_t **)first;
+    theatre_t *b = *(theatre_t **)second;
+    return strcmp(a->name, b->name);
+}

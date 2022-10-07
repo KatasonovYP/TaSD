@@ -48,7 +48,7 @@ int append(table_t *table, theatre_t *theatre)
     return rc;
 }
 
-int remove_elem(table_t *table, char *key)
+int remove_by_name(table_t *table, char *key)
 {
     // TODO qsort array
     int rc = ERR_OK;
@@ -72,11 +72,4 @@ int remove_elem(table_t *table, char *key)
     else
         rc = ERR_UNKNOWN;
     return rc;
-}
-
-int compare_theatre(const void *first, const void *second)
-{
-    theatre_t *a = *(theatre_t **)first;
-    theatre_t *b = *(theatre_t **)second;
-    return strcmp(a->name, b->name);
 }
