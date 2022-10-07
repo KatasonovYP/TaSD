@@ -92,3 +92,25 @@ int remove_by_name(table_t *table, char *key)
         rc = ERR_NOT_FOUND;
     return rc;
 }
+
+void bubble_sort(void *buff, size_t num, size_t size, cmp_fn_t cmp)
+{
+    void *temp = malloc(size);
+    char *p = buff;
+
+    for (size_t i = 0; i < num; ++i)
+    {
+        for (size_t j = i + 1; j < num - 1; ++j)
+        {
+            if (cmp(p + j * size, p + j * size + 1 * size) > 0)
+            {
+                memcpy(temp, p + j * size, size);
+                memcpy(p + j * size, p + j * size + 1 * size, size);
+                memcpy(p + j * size + 1 * size, temp, size);
+            }
+        }
+    }
+
+    free(temp);
+}
+
