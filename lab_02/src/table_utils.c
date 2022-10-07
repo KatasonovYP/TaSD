@@ -11,6 +11,18 @@ table_t *init_table()
     return table;
 }
 
+void free_table(table_t *table)
+{
+    if (table)
+    {
+        for (int i = 0; i < table->len; ++i)
+            free_theatre(table->theatres[i]);
+        free(table->theatres);
+        free(table->keys);
+    }
+    free(table);
+}
+
 void read_table(table_t *table, char *path, int *rc)
 {
     theatre_t *buff_theatre = NULL;
@@ -26,16 +38,21 @@ void read_table(table_t *table, char *path, int *rc)
     fclose(file);
 }
 
-void free_table(table_t *table)
+table_t *copy_table(table_t *src, int *rc)
 {
-    if (table)
-    {
-        for (int i = 0; i < table->len; ++i)
-            free_theatre(table->theatres[i]);
-        free(table->theatres);
-        free(table->keys);
-    }
-    free(table);
+    char *filename = "tmp.txt";
+    save_table(filename, src);
+    table_t *dst = init_table();
+    read_table(dst, filename, rc);
+    remove(filename);
+    return dst;
+}
+
+table_t *sorted(table_t *src, sort_fn_t sort, int *rc)
+{
+    table_t *dst = copy_table(src, rc);
+    sort(dst->theatres, dst->len, sizeof(theatre_t *), compare_theatre);
+    return dst;
 }
 
 int append(table_t *table, theatre_t *theatre)

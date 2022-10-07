@@ -25,6 +25,7 @@ int main(void)
     char *buff = NULL;
     action_t action;
     table_t *table = init_table();
+    table_t *sorted_table = NULL;
     do
     {
         print_table(table);
@@ -36,12 +37,14 @@ int main(void)
             append(table, input_theatre(stdin));
             break;
         case act_remove:
-            buff = prompt_str(stdin, "Input name: ");
-            remove_elem(table, buff);
+            buff = prompt_str(stdin, "Input theatre: ");
+            remove_by_name(table, buff);
             free(buff);
             break;
         case act_sort_table:
-            puts("TODO");
+            sorted_table = sorted(table, qsort, &rc);
+            print_table(sorted_table);
+            free_table(sorted_table);
             break;
         case act_sort_keys:
             puts("TODO");
