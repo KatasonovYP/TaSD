@@ -89,6 +89,69 @@ int prompt_int(FILE *stream, char *prompt)
     return number;
 }
 
+int save_table(char *path, table_t *table)
+{
+    int rc = ERR_OK;
+    FILE *file = fopen(path, "w");
+    if (file)
+        for (int i = 0; i < table->len; ++i)
+            write_theatre(file, table->theatres[i]);
+    else
+        rc = ERR_WRONG_FILENAME;
+    fclose(file);
+    return rc;
+}
+
+void write_theatre(FILE *stream, theatre_t *theatre)
+{
+    fprintf(stream, "%s\n", theatre->name);
+    fprintf(stream, "%s\n", theatre->performance);
+    fprintf(stream, "%s\n", theatre->producer);
+    write_price_range(stream, theatre->price_range);
+    write_performance_type(stream, theatre->type, theatre->type_id);
+}
+
+void write_price_range(FILE *stream, price_range_t *price)
+{
+    fprintf(stream, "%d\n", price->min);
+    fprintf(stream, "%d\n", price->max);
+}
+
+void write_performance_type(FILE *stream, performance_t *type, type_id_t type_id)
+{
+    fprintf(stream, "%d\n", type_id);
+    switch (type_id)
+    {
+    case kid:
+        write_kid(stream, type->kid);
+        break;
+    case adult:
+        write_adult(stream, type->adult);
+        break;
+    case music:
+        write_music(stream, type->music);
+    }
+}
+
+void write_kid(FILE *stream, kid_t *kid)
+{
+    fprintf(stream, "%d\n", kid->age);
+    fprintf(stream, "%d\n", kid->genre);
+}
+
+void write_adult(FILE *stream, adult_t *adult)
+{
+    fprintf(stream, "%d\n", adult->genre);
+}
+
+void write_music(FILE *stream, music_t *music)
+{
+    fprintf(stream, "%s\n", music->composer);
+    fprintf(stream, "%s\n", music->country);
+    fprintf(stream, "%d\n", music->min_age);
+    fprintf(stream, "%d\n", music->duration);
+}
+
 void print_theatre(theatre_t *theatre)
 {
     printf("|");

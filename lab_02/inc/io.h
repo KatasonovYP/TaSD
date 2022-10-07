@@ -26,6 +26,14 @@ music_t *input_music(FILE *stream);
 char *prompt_str(FILE *stream, char *prompt);
 int prompt_int(FILE *stream, char *prompt);
 
+int save_table(char *path, table_t *table);
+void write_theatre(FILE *stream, theatre_t *theatre);
+void write_price_range(FILE *stream, price_range_t *price);
+void write_performance_type(FILE *stream, performance_t *type, type_id_t type_id);
+void write_kid(FILE *stream, kid_t *kid);
+void write_adult(FILE *stream, adult_t *adult);
+void write_music(FILE *stream, music_t *music);
+
 void print_theatre(theatre_t *src);
 void print_type(performance_t *type, type_id_t type_id);
 void print_kid(kid_t *kid);
