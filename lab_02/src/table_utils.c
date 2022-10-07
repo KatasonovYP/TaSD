@@ -50,26 +50,28 @@ int append(table_t *table, theatre_t *theatre)
 
 int remove_by_name(table_t *table, char *key)
 {
-    // TODO qsort array
     int rc = ERR_OK;
+    theatre_t **pe = table->theatres + table->len;
+
     theatre_t *key_theatre = malloc(sizeof(theatre_t));
     key_theatre->name = key;
-    theatre_t **find = (theatre_t **)bsearch(
-        &key_theatre,
-        table->theatres,
-        table->len,
-        sizeof(theatre_t **),
-        compare_theatre);
+    theatre_t **find = NULL;
+
+    for (theatre_t **curr = table->theatres; curr < pe && !find; ++curr)
+    {
+        if (!compare_theatre(curr, &key_theatre))
+            find = curr;
+    }
     free(key_theatre);
+
     if (find != NULL)
     {
         free_theatre(*find);
-        theatre_t **pe = table->theatres + table->len - 1;
-        for (theatre_t **curr = find; curr < pe; ++curr)
+        for (theatre_t **curr = find; curr < pe - 1; ++curr)
             *curr = *(curr + 1);
         --table->len;
     }
     else
-        rc = ERR_UNKNOWN;
+        rc = ERR_NOT_FOUND;
     return rc;
 }

@@ -8,7 +8,7 @@
 #define ERR_ARGS_KEY 4
 #define ERR_FILE_EMPTY 5
 #define ERR_MALLOC 6
-#define ERR_FILTER 7
+#define ERR_NOT_FOUND 7
 
 #define ERR_READ 100
 #define ERR_READ_NAME 101
