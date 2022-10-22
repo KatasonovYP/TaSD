@@ -1,4 +1,3 @@
-// #define _POSIX_SOURCE 1
 #define _POSIX_C_SOURCE 200809L
 #include "../inc/io.h"
 
@@ -185,7 +184,7 @@ void print_kid(kid_t *kid)
     printf(FORMAT, NORMAL, get_kid_genre(kid->genre));
     printf(FORMAT_NUMBER, SHORT, kid->age);
     printf(FORMAT, LONG, "-");
-    printf(FORMAT, NORMAL, "-");
+    printf(FORMAT, LONG, "-");
     printf(FORMAT, NORMAL, "-");
 }
 
@@ -194,7 +193,7 @@ void print_adult(adult_t *adult)
     printf(FORMAT, NORMAL, get_adult_genre(adult->genre));
     printf(FORMAT, SHORT, "-");
     printf(FORMAT, LONG, "-");
-    printf(FORMAT, NORMAL, "-");
+    printf(FORMAT, LONG, "-");
     printf(FORMAT, NORMAL, "-");
 }
 
@@ -203,7 +202,7 @@ void print_music(music_t *music)
     printf(FORMAT, NORMAL, "-");
     printf(FORMAT_NUMBER, SHORT, music->min_age);
     printf(FORMAT, LONG, music->composer);
-    printf(FORMAT, NORMAL, music->country);
+    printf(FORMAT, LONG, music->country);
     printf(FORMAT_NUMBER, NORMAL, music->duration);
 }
 
@@ -228,7 +227,7 @@ void print_header()
     printf(FORMAT, NORMAL, "Genre");
     printf(FORMAT, SHORT, "Age");
     printf(FORMAT, LONG, "Composer");
-    printf(FORMAT, NORMAL, "Country");
+    printf(FORMAT, LONG, "Country");
     printf(FORMAT, NORMAL, "Duration");
     puts("");
     print_line();
@@ -236,7 +235,7 @@ void print_header()
 
 void print_line()
 {
-    for (int i = 0; i < 154; ++i)
+    for (int i = 0; i < 159; ++i)
         printf("=");
     printf("\n");
 }
