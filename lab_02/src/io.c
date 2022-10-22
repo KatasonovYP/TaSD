@@ -218,6 +218,7 @@ void print_keys(table_t *table)
         puts("");
     }
     print_key_line();
+    puts("");
 }
 
 void print_table(table_t *table)
@@ -226,13 +227,13 @@ void print_table(table_t *table)
     for (int i = 0; i < table->len; ++i)
         print_theatre(table->theatres[i]);
     print_line();
+    puts("");
 }
 
 void print_header()
 {
     print_line();
     printf("|");
-    printf(FORMAT, SHORT, "id");
     printf(FORMAT, LONG, "Theatre");
     printf(FORMAT, LONG, "Performance");
     printf(FORMAT, LONG, "Producer");
@@ -261,7 +262,7 @@ void print_keys_header()
 
 void print_line()
 {
-    for (int i = 0; i < 164; ++i)
+    for (int i = 0; i < 159; ++i)
         printf("=");
     printf("\n");
 }
