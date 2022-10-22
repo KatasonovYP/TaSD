@@ -13,7 +13,4 @@ char *get_type_performance(type_id_t type_id);
 char *get_kid_genre(kid_genre_t genre);
 char *get_adult_genre(adult_genre_t genre);
 
-int compare_theatre_name(const void *first, const void *second);
-int compare_theatre_age(const void *first, const void *second);
-
 #endif // #ifndef __THEATRE_UTILS_H__

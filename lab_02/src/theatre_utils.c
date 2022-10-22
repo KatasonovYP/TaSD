@@ -79,19 +79,3 @@ char *get_adult_genre(adult_genre_t genre)
         return NULL;
     }
 }
-
-int compare_theatre_name(const void *first, const void *second)
-{
-    theatre_t *a = *(theatre_t **)first;
-    theatre_t *b = *(theatre_t **)second;
-    return strcmp(a->name, b->name);
-}
-
-int compare_theatre_age(const void *first, const void *second)
-{
-    theatre_t *a = *(theatre_t **)first;
-    theatre_t *b = *(theatre_t **)second;
-    if (a->type_id == music && b->type_id == music)
-        return a->type->music->min_age <= b->type->music->min_age;
-    return 0;
-}

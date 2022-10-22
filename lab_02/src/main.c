@@ -4,6 +4,7 @@
 #include "../inc/theatre.h"
 #include "../inc/errors.h"
 #include "../inc/io.h"
+#include "../inc/sort.h"
 #include "../inc/theatre_utils.h"
 #include "../inc/table_utils.h"
 
@@ -35,8 +36,8 @@ int main(int argc, char **argv)
     {
         if (stream == stdin)
         {
-        print_table(table);
-        print_menu();
+            print_table(table);
+            print_menu();
         }
         action = prompt_int(stream, "Input action: ");
         system ("clear");
