@@ -1,7 +1,7 @@
 #ifndef __THEATRE_H__
 #define __THEATRE_H__
 
-#define TABLE_SIZE 40
+#define TABLE_SIZE 4000
 
 typedef struct table table_t;
 typedef struct key key_t;
