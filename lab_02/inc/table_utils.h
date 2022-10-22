@@ -20,5 +20,8 @@ void shuffle(void *array, size_t n, size_t size);
 
 int append(table_t *table, theatre_t *theatre);
 int remove_by_name(table_t *table, char *key);
+int remove_by_age(table_t *table, int key);
+int remove_theatre(table_t *table, theatre_t *key, cmp_fn_t comp);
+theatre_t **find_theatre(table_t *table, theatre_t **key, cmp_fn_t comp);
 
 #endif // #ifndef __TABLE_UTILS_H__
