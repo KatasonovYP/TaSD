@@ -27,6 +27,10 @@ void read_table(table_t *table, char *path, int *rc)
 {
     theatre_t *buff_theatre = NULL;
     FILE *file = fopen(path, "r");
+    if (file == NULL)
+        *rc = ERR_WRONG_FILENAME;
+    else
+    {
     while (!feof(file))
     {
         buff_theatre = input_theatre(file);
@@ -36,6 +40,7 @@ void read_table(table_t *table, char *path, int *rc)
         append(table, buff_theatre);
     }
     fclose(file);
+}
 }
 
 table_t *copy_table(table_t *src, int *rc)
