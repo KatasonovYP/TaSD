@@ -20,22 +20,30 @@ typedef enum action
     act_read_table
 } action_t;
 
-int main(void)
+int main(int argc, char **argv)
 {
+    FILE *stream = stdin;
+    if (argc == 2)
+        stream = fopen(argv[1], "r");
     int rc = ERR_OK;
-    char *buff = NULL;
+    char *buff_str = NULL;
+    int buff_int = 0;
     action_t action;
     table_t *table = init_table();
-    table_t *sorted_table = NULL;
+    table_t *buff_table = NULL;
     do
     {
+        if (stream == stdin)
+        {
         print_table(table);
         print_menu();
-        action = prompt_int(stdin, "Input action: ");
+        }
+        action = prompt_int(stream, "Input action: ");
+        system ("clear");
         switch (action)
         {
         case act_append:
-            append(table, input_theatre(stdin));
+            append(table, input_theatre(stream));
             break;
         case act_remove:
             buff_str = prompt_str(stream, "Input theatre: ");
@@ -43,9 +51,9 @@ int main(void)
             free(buff_str);
             break;
         case act_sort_table:
-            sorted_table = sorted(table, qsort, &rc);
-            print_table(sorted_table);
-            free_table(sorted_table);
+            buff_table = sorted(table, qsort, &rc);
+            print_table(buff_table);
+            free_table(buff_table);
             break;
         case act_sort_keys:
             puts("TODO");
@@ -54,12 +62,20 @@ int main(void)
             puts("TODO");
             break;
         case act_qsort_vs_bubble:
-            puts("TODO");
+            printf("result: %d\n", sorts_vs(table, qsort, bubble_sort, &rc));
+            break;
+        case act_filter_by_age:
+            buff_table = copy_table(table, &rc);
+            buff_int = prompt_int(stream, "Input minimal age: ");
+            for (int i = 0; i < table->len; ++i)
+                remove_by_age(buff_table, buff_int);
+            print_table(buff_table);
+            free(buff_table);
             break;
         case act_read_table:
-            buff = prompt_str(stdin, "Input file path: ");
-            read_table(table, buff, &rc);
-            free(buff);
+            buff_str = prompt_str(stream, "Input file path: ");
+            read_table(table, buff_str, &rc);
+            free(buff_str);
             break;
         case act_exit:
             puts("exit");
@@ -70,5 +86,6 @@ int main(void)
         }
     } while (action);
     free_table(table);
+    fclose(stream);
     return rc;
 }
