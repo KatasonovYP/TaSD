@@ -16,6 +16,7 @@ typedef enum action
     act_sort_keys,
     act_table_vs_key,
     act_qsort_vs_bubble,
+    act_filter_by_age,
     act_read_table
 } action_t;
 
@@ -37,9 +38,9 @@ int main(void)
             append(table, input_theatre(stdin));
             break;
         case act_remove:
-            buff = prompt_str(stdin, "Input theatre: ");
-            remove_by_name(table, buff);
-            free(buff);
+            buff_str = prompt_str(stream, "Input theatre: ");
+            remove_by_name(table, buff_str);
+            free(buff_str);
             break;
         case act_sort_table:
             sorted_table = sorted(table, qsort, &rc);

@@ -73,19 +73,33 @@ int append(table_t *table, theatre_t *theatre)
 int remove_by_name(table_t *table, char *key)
 {
     int rc = ERR_OK;
-    theatre_t **pe = table->theatres + table->len;
-
     theatre_t *key_theatre = malloc(sizeof(theatre_t));
     key_theatre->name = key;
-    theatre_t **find = NULL;
-
-    for (theatre_t **curr = table->theatres; curr < pe && !find; ++curr)
-    {
-        if (!compare_theatre(curr, &key_theatre))
-            find = curr;
-    }
+    remove_theatre(table, key_theatre, compare_theatre_name);
     free(key_theatre);
+    return rc;
+}
 
+int remove_by_age(table_t *table, int key)
+    {
+    int rc = ERR_OK;
+    theatre_t *key_theatre = malloc(sizeof(theatre_t));
+    key_theatre->type_id = music;
+    key_theatre->type = malloc(sizeof(performance_t));
+    key_theatre->type->music = malloc(sizeof(music_t));
+    key_theatre->type->music->min_age = key;
+    remove_theatre(table, key_theatre, compare_theatre_age);
+    free(key_theatre->type->music);
+    free(key_theatre->type);
+    free(key_theatre);
+    return rc;
+}
+
+int remove_theatre(table_t *table, theatre_t *key, cmp_fn_t comp)
+{
+    int rc = ERR_OK;
+    theatre_t **pe = table->theatres + table->len;
+    theatre_t **find = find_theatre(table, &key, comp);
     if (find != NULL)
     {
         free_theatre(*find);
@@ -96,6 +110,18 @@ int remove_by_name(table_t *table, char *key)
     else
         rc = ERR_NOT_FOUND;
     return rc;
+}
+
+theatre_t **find_theatre(table_t *table, theatre_t **key, cmp_fn_t comp)
+{
+    theatre_t **pe = table->theatres + table->len;
+    theatre_t **find = NULL;
+    for (theatre_t **curr = table->theatres; curr < pe && !find; ++curr)
+    {
+        if (!comp(curr, key))
+            find = curr;
+    }
+    return find;
 }
 
 void bubble_sort(void *buff, size_t num, size_t size, cmp_fn_t cmp)

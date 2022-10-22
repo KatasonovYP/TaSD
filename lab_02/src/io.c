@@ -249,6 +249,7 @@ void print_menu()
     puts("4 - Print sorted table with keys");
     puts("5 - Compare table sort and key sort");
     puts("6 - Compare qsort and bubble sort");
-    puts("7 - Read table from file");
+    puts("7 - Filter by age");
+    puts("8 - Read table from file");
     puts("0 - Exit");
 }
