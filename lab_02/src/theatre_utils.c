@@ -80,7 +80,7 @@ char *get_adult_genre(adult_genre_t genre)
     }
 }
 
-int compare_theatre(const void *first, const void *second)
+int compare_theatre_name(const void *first, const void *second)
 {
     theatre_t *a = *(theatre_t **)first;
     theatre_t *b = *(theatre_t **)second;

@@ -31,16 +31,16 @@ void read_table(table_t *table, char *path, int *rc)
         *rc = ERR_WRONG_FILENAME;
     else
     {
-    while (!feof(file))
-    {
-        buff_theatre = input_theatre(file);
-        *rc = is_correct_theatre(buff_theatre);
-        if (*rc != ERR_OK)
-            break;
-        append(table, buff_theatre);
+        while (!feof(file))
+        {
+            buff_theatre = input_theatre(file);
+            *rc = is_correct_theatre(buff_theatre);
+            if (*rc != ERR_OK)
+                break;
+            append(table, buff_theatre);
+        }
+        fclose(file);
     }
-    fclose(file);
-}
 }
 
 table_t *copy_table(table_t *src, int *rc)
@@ -56,7 +56,7 @@ table_t *copy_table(table_t *src, int *rc)
 table_t *sorted(table_t *src, sort_fn_t sort, int *rc)
 {
     table_t *dst = copy_table(src, rc);
-    sort(dst->theatres, dst->len, sizeof(theatre_t *), compare_theatre);
+    sort(dst->theatres, dst->len, sizeof(theatre_t *), compare_theatre_name);
     return dst;
 }
 
@@ -81,7 +81,7 @@ int remove_by_name(table_t *table, char *key)
 }
 
 int remove_by_age(table_t *table, int key)
-    {
+{
     int rc = ERR_OK;
     theatre_t *key_theatre = malloc(sizeof(theatre_t));
     key_theatre->type_id = music;
