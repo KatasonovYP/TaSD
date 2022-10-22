@@ -76,15 +76,14 @@ struct theatre
 
 struct key
 {
-    short id;
-    int *min_age;
-    int *duration;
+    int id;
+    char *name;
 };
 
 struct table
 {
     theatre_t **theatres;
-    key_t *keys;
+    key_t **keys;
     int len;
 };
 

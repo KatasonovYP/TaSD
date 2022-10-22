@@ -1,7 +1,7 @@
 #define _POSIX_C_SOURCE 200809L
 #include "../inc/io.h"
 
-#define N 15
+#define MAX_STR_SIZE 15
 
 theatre_t *input_theatre(FILE *stream)
 {
@@ -66,7 +66,7 @@ music_t *input_music(FILE *stream)
 
 char *prompt_str(FILE *stream, char *prompt)
 {
-    char buff[N];
+    char buff[MAX_STR_SIZE];
     if (stream == stdin)
         printf("%s", prompt);
     if (fgets(buff, sizeof(buff), stream) == NULL)
@@ -206,6 +206,20 @@ void print_music(music_t *music)
     printf(FORMAT_NUMBER, NORMAL, music->duration);
 }
 
+void print_keys(table_t *table) 
+{
+    print_keys_header();
+    for (int i = 0; i < table->len; ++i)
+    {
+        printf("|");
+        printf(FORMAT_NUMBER, SHORT, i);
+        printf(FORMAT_NUMBER, SHORT, table->keys[i]->id);
+        printf(FORMAT, LONG, table->keys[i]->name);
+        puts("");
+    }
+    print_key_line();
+}
+
 void print_table(table_t *table)
 {
     print_header();
@@ -218,6 +232,7 @@ void print_header()
 {
     print_line();
     printf("|");
+    printf(FORMAT, SHORT, "id");
     printf(FORMAT, LONG, "Theatre");
     printf(FORMAT, LONG, "Performance");
     printf(FORMAT, LONG, "Producer");
@@ -233,9 +248,27 @@ void print_header()
     print_line();
 }
 
+void print_keys_header()
+{
+    print_key_line();
+    printf("|");
+    printf(FORMAT, SHORT, "pk");
+    printf(FORMAT, SHORT, "id");
+    printf(FORMAT, LONG, "name");
+    puts("");
+    print_key_line();
+}
+
 void print_line()
 {
-    for (int i = 0; i < 159; ++i)
+    for (int i = 0; i < 164; ++i)
+        printf("=");
+    printf("\n");
+}
+
+void print_key_line()
+{
+    for (int i = 0; i < 35; ++i)
         printf("=");
     printf("\n");
 }

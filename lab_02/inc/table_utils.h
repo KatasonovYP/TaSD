@@ -12,8 +12,11 @@
 table_t *init_table();
 void read_table(table_t *table, char *path, int *rc);
 void free_table(table_t *table);
+void free_key(key_t *key);
 
 table_t *copy_table(table_t *src, int *rc);
+
+void update_keys(table_t *table);
 
 int append(table_t *table, theatre_t *theatre);
 int remove_by_name(table_t *table, char *key);

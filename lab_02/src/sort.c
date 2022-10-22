@@ -73,3 +73,10 @@ int compare_theatre_age(const void *first, const void *second)
         return a->type->music->min_age <= b->type->music->min_age;
     return 0;
 }
+
+int compare_key_name(const void *first, const void *second)
+{
+    key_t *a = *(key_t **)first;
+    key_t *b = *(key_t **)second;
+    return strcmp(a->name, b->name);
+}

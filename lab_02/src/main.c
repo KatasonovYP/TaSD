@@ -57,7 +57,9 @@ int main(int argc, char **argv)
             free_table(buff_table);
             break;
         case act_sort_keys:
-            puts("TODO");
+            buff_table = keys_sorted(table, qsort, &rc);
+            print_keys(buff_table);
+            free_table(buff_table);
             break;
         case act_table_vs_key:
             puts("TODO");

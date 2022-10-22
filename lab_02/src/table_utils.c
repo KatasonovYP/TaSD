@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 200809L
 #include "../inc/table_utils.h"
 
 table_t *init_table()
@@ -7,6 +8,8 @@ table_t *init_table()
     for (int i = 0; i < TABLE_SIZE; ++i)
         table->theatres[i] = NULL;
     table->keys = malloc(TABLE_SIZE * sizeof(key_t *));
+    for (int i = 0; i < TABLE_SIZE; ++i)
+        table->keys[i] = NULL;
     table->len = 0;
     return table;
 }
@@ -17,10 +20,19 @@ void free_table(table_t *table)
     {
         for (int i = 0; i < table->len; ++i)
             free_theatre(table->theatres[i]);
+        for (int i = 0; i < table->len; ++i)
+            free_key(table->keys[i]);
         free(table->theatres);
         free(table->keys);
     }
     free(table);
+}
+
+void free_key(key_t *key)
+{
+    if (key)
+        free(key->name);
+    free(key);
 }
 
 void read_table(table_t *table, char *path, int *rc)
@@ -60,13 +72,23 @@ table_t *sorted(table_t *src, sort_fn_t sort, int *rc)
     return dst;
 }
 
+table_t *keys_sorted(table_t *src, sort_fn_t sort, int *rc)
+{
+    table_t *dst = copy_table(src, rc);
+    update_keys(dst);
+    sort(dst->keys, dst->len, sizeof(key_t *), compare_key_name);
+    return dst;
+}
+
 int append(table_t *table, theatre_t *theatre)
 {
     int rc = ERR_OK;
     if (table->len == TABLE_SIZE)
         rc = ERR_TABLE_OVERFLOW;
     else
+    {
         table->theatres[(table->len)++] = theatre;
+    }
     return rc;
 }
 
@@ -124,3 +146,13 @@ theatre_t **find_theatre(table_t *table, theatre_t **key, cmp_fn_t comp)
     return find;
 }
 
+void update_keys(table_t *table)
+{
+    for (int i = 0; i < table->len; ++i)
+    {
+        
+        table->keys[i] = realloc(table->keys[i], sizeof(key_t));
+        table->keys[i]->id = i;
+        table->keys[i]->name = strdup(table->theatres[i]->name);
+    }
+}
