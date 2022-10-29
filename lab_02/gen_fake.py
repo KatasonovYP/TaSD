@@ -3,6 +3,7 @@ from faker.providers import internet
 from random import randint
 import sys
 
+FILENAME = 'data.txt'
 
 def gen_theatre() -> dict:
     fake = Faker('en_US')
@@ -35,15 +36,15 @@ def gen_theatre() -> dict:
 
 
 def write_theatre(theatre: dict):
-    with open('data.txt', 'a') as file:
+    with open(FILENAME, 'a') as file:
         for it in theatre.values():
-            if type(it) == str and len(it) > 13:
-                it = it[:13]
+            if type(it) == str and len(it) > 9:
+                it = it[:9]
             file.write(f'{it}\n')
 
 
 if __name__ == '__main__':
-    with open('data.txt', 'w') as f:
+    with open(FILENAME, 'w') as f:
         ...
     cnt = 10 if len(sys.argv) == 1 else int(sys.argv[1])
     for i in range(cnt):
