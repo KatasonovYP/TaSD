@@ -41,12 +41,15 @@ void print_adult(adult_t *adult);
 void print_music(music_t *music);
 
 void print_keys(table_t *table);
-
 void print_table(table_t *table);
+
 void print_header();
 void print_keys_header();
+void print_timer_header();
+
 void print_line();
 void print_key_line();
+void print_timer_line();
 
 void print_menu();
 

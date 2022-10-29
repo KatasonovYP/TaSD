@@ -5,18 +5,47 @@ int sorts_vs(table_t *src, sort_fn_t first_sort, sort_fn_t second_sort, int *rc)
     table_t *first_table = copy_table(src, rc);
     table_t *second_table = copy_table(src, rc);
 
-    time_t time_first = clock();
+    time_t time_first_table = clock();
     first_sort(first_table->theatres, first_table->len, sizeof(table_t *), compare_theatre_name);
-    time_first = clock() - time_first;
+    time_first_table = clock() - time_first_table;
 
-    time_t time_second = clock();
+    time_t time_second_table = clock();
     second_sort(second_table->theatres, second_table->len, sizeof(table_t *), compare_theatre_name);
-    time_second = clock() - time_second;
+    time_second_table = clock() - time_second_table;
 
-    printf("first: %ld\n", time_first);
-    printf("second: %ld\n", time_second);
+    free_table(first_table);
+    free_table(second_table);
 
-    return time_second - time_first;
+    first_table = copy_table(src, rc);
+    second_table = copy_table(src, rc);
+    update_keys(first_table);
+    update_keys(second_table);
+
+    time_t time_first_key = clock();
+    first_sort(first_table->keys, first_table->len, sizeof(key_t*), compare_key_name);
+    time_first_key = clock() - time_first_key;
+
+    time_t time_second_key = clock();
+    second_sort(second_table->keys, second_table->len, sizeof(key_t *), compare_key_name);
+    time_second_key = clock() - time_second_key;
+    
+    free_table(first_table);
+    free_table(second_table);
+
+    print_timer_header();
+    printf("|");
+    printf(FORMAT, LONG, "table");
+    printf(FORMAT_NUMBER, SHORT, (int)time_first_table);
+    printf(FORMAT_NUMBER, SHORT, (int)time_second_table);
+    printf("\n");
+    printf("|");
+    printf(FORMAT, LONG, "keys");
+    printf(FORMAT_NUMBER, SHORT, (int)time_first_key);
+    printf(FORMAT_NUMBER, SHORT, (int)time_second_key);
+    printf("\n");
+    print_timer_line();
+
+    return time_second_table - time_first_table;
 }
 
 void bubble_sort(void *buff, size_t num, size_t size, cmp_fn_t cmp)
@@ -70,7 +99,12 @@ int compare_theatre_age(const void *first, const void *second)
     theatre_t *a = *(theatre_t **)first;
     theatre_t *b = *(theatre_t **)second;
     if (a->type_id == music && b->type_id == music)
-        return a->type->music->min_age <= b->type->music->min_age;
+    {
+        if (a->type->music->min_age == b->type->music->min_age)
+        {
+            return a->type->music->duration < b->type->music->duration;
+        }
+    }
     return 0;
 }
 

@@ -260,6 +260,24 @@ void print_keys_header()
     print_key_line();
 }
 
+void print_timer_header()
+{
+    print_key_line();
+    printf("|");
+    printf(FORMAT, LONG, "type");
+    printf(FORMAT, SHORT, "qsort");
+    printf(FORMAT, SHORT, "bubble");
+    puts("");
+    print_key_line();
+}
+
+void print_timer_line()
+{
+    for (int i = 0; i < 35; ++i)
+        printf("=");
+    printf("\n");
+}
+
 void print_line()
 {
     for (int i = 0; i < 159; ++i)
@@ -276,10 +294,10 @@ void print_key_line()
 
 void print_menu()
 {
-    puts("1 - Append theatre");
-    puts("2 - Remove theatre by name");
-    puts("3 - Print sorted table");
-    puts("4 - Print sorted table with keys");
+    puts("1 - Print table");
+    puts("2 - Append theatre");
+    puts("3 - Remove theatre by name");
+    puts("4 - Print sorted table");
     puts("5 - Compare table sort and key sort");
     puts("6 - Compare qsort and bubble sort");
     puts("7 - Filter by age");
