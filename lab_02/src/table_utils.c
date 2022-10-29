@@ -43,13 +43,12 @@ void read_table(table_t *table, char *path, int *rc)
         *rc = ERR_WRONG_FILENAME;
     else
     {
-        while (!feof(file))
+        while (!feof(file) && *rc == ERR_OK)
         {
             buff_theatre = input_theatre(file);
             *rc = is_correct_theatre(buff_theatre);
-            if (*rc != ERR_OK)
-                break;
-            append(table, buff_theatre);
+            if (*rc == ERR_OK)
+                append(table, buff_theatre);
         }
         fclose(file);
     }
@@ -102,14 +101,15 @@ int remove_by_name(table_t *table, char *key)
     return rc;
 }
 
-int remove_by_age(table_t *table, int key)
+int remove_by_age(table_t *table, int age, int duration)
 {
     int rc = ERR_OK;
     theatre_t *key_theatre = malloc(sizeof(theatre_t));
     key_theatre->type_id = music;
     key_theatre->type = malloc(sizeof(performance_t));
     key_theatre->type->music = malloc(sizeof(music_t));
-    key_theatre->type->music->min_age = key;
+    key_theatre->type->music->min_age = age;
+    key_theatre->type->music->duration = duration;
     remove_theatre(table, key_theatre, compare_theatre_age);
     free(key_theatre->type->music);
     free(key_theatre->type);
@@ -122,15 +122,21 @@ int remove_theatre(table_t *table, theatre_t *key, cmp_fn_t comp)
     int rc = ERR_OK;
     theatre_t **pe = table->theatres + table->len;
     theatre_t **find = find_theatre(table, &key, comp);
-    if (find != NULL)
+
+    if (find == NULL)
     {
-        free_theatre(*find);
-        for (theatre_t **curr = find; curr < pe - 1; ++curr)
-            *curr = *(curr + 1);
-        --table->len;
+        rc = ERR_NOT_FOUND;
     }
     else
-        rc = ERR_NOT_FOUND;
+    {
+        free_theatre(*find);
+
+        for (theatre_t **curr = find; curr < pe - 1; ++curr)
+        {
+            *curr = *(curr + 1);
+        }
+        --table->len;
+    }
     return rc;
 }
 

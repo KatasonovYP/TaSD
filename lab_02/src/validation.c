@@ -25,6 +25,8 @@ int is_correct_price(price_range_t *price)
         rc = ERR_READ_MIN_PRICE;
     else if (price->max < 0)
         rc = ERR_READ_MAX_PRICE;
+    else if (price->max < price->min)
+        rc = ERR_READ_MAX_PRICE;
     return rc;
 }
 
