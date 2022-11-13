@@ -1,4 +1,4 @@
-CFLAGS = -std=c99 -Wall -Werror -Wpedantic -Wextra 
+CFLAGS = -std=c11 -Wall -Werror -Wpedantic -Wextra 
 CFLAGS += -Wfloat-equal -Wfloat-conversion -Wvla -fdiagnostics-color=always
 CFLAGS += -I "inc"
 
