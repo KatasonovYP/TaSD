@@ -5,7 +5,7 @@
 #include <string.h>
 #include "theatre.h"
 
-void free_theatre(theatre_t *theatre);
+void free_theatre(theatre_t **theatre);
 void free_type(performance_t *type, type_id_t type_id);
 void free_music(music_t *music);
 

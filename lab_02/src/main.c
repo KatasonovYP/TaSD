@@ -46,7 +46,7 @@ int main(int argc, char **argv)
         {
         case act_append:
             append(table, input_theatre(stream));
-            rc = is_correct_theatre(table->theatres[table->len - 1]);
+            // rc = is_correct_theatre(table->theatres[table->len - 1]);
             break;
 
         case act_remove:
@@ -58,16 +58,16 @@ int main(int argc, char **argv)
         case act_sort_table:
             buff_table = sorted(table, qsort, &rc);
             print_table(buff_table);
-            free_table(buff_table);
+            free_table(&buff_table);
             break;
 
         case act_sort_keys:
             buff_table = keys_sorted(table, qsort, &rc);
             print_keys(buff_table);
-            free_table(buff_table);
+            free_table(&buff_table);
             buff_table = sorted(table, qsort, &rc);
             print_table(buff_table);
-            free_table(buff_table);
+            free_table(&buff_table);
             break;
 
         case act_print_table:
@@ -102,8 +102,8 @@ int main(int argc, char **argv)
             puts("Error: Uncnown action!");
             break;
         }
-    } while (action && !rc);
-    free_table(table);
+    } while (action);
+    free_table(&table);
     fclose(stream);
     if (rc)
     {

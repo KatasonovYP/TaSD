@@ -14,18 +14,20 @@ table_t *init_table()
     return table;
 }
 
-void free_table(table_t *table)
+void free_table(table_t **p_table)
 {
+    table_t *table = *p_table;
     if (table)
     {
         for (int i = 0; i < table->len; ++i)
-            free_theatre(table->theatres[i]);
+            free_theatre(&table->theatres[i]);
         for (int i = 0; i < table->len; ++i)
             free_key(table->keys[i]);
         free(table->theatres);
         free(table->keys);
     }
-    free(table);
+    free(*p_table);
+    *p_table = NULL;
 }
 
 void free_key(key_t *key)
@@ -43,7 +45,7 @@ void read_table(table_t *table, char *path, int *rc)
         *rc = ERR_WRONG_FILENAME;
     else
     {
-        while (!feof(file) && *rc == ERR_OK)
+        while (!feof(file))
         {
             buff_theatre = input_theatre(file);
             *rc = is_correct_theatre(buff_theatre);
@@ -129,7 +131,7 @@ int remove_theatre(table_t *table, theatre_t *key, cmp_fn_t comp)
     }
     else
     {
-        free_theatre(*find);
+        free_theatre(find);
 
         for (theatre_t **curr = find; curr < pe - 1; ++curr)
         {

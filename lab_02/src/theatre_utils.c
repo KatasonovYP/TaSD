@@ -1,7 +1,8 @@
 #include "../inc/theatre_utils.h"
 
-void free_theatre(theatre_t *theatre)
+void free_theatre(theatre_t **p_theatre)
 {
+    theatre_t *theatre = *p_theatre;
     if (theatre)
     {
         free(theatre->name);
@@ -10,7 +11,8 @@ void free_theatre(theatre_t *theatre)
         free(theatre->price_range);
         free_type(theatre->type, theatre->type_id);
     }
-    free(theatre);
+    free(*p_theatre);
+    *p_theatre = NULL;
 }
 
 void free_type(performance_t *type, type_id_t type_id)
