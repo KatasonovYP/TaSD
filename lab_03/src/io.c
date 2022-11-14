@@ -259,9 +259,9 @@ void compare_results(matrix_t std_matrix, sparse_matrix_t sparse_matrix,
 
     printf("\n\nMatrix %d x %d. Fullness (approximate): %.1lf%% / 100%%\n",
            std_matrix.rows, std_matrix.columns, amount);
-    printf("\nNormal multiplication time: %Ild ticks\nSparse matrix multiplication time: %Ild ticks\n",
+    printf("\nNormal multiplication time: %ld ticks\nSparse matrix multiplication time: %ld ticks\n",
            std_end - std_start, sparse_end - std_end);
-    printf("\nMemory footprint:\nRegular matrix (one):% zu\nSparse matrix (one):% zu\n",
+    printf("\nMemory footprint:\nRegular matrix (one):%zu\nSparse matrix (one):%zu\n",
            sizeof(int) * std_matrix.rows * std_matrix.columns,
            2 * sizeof(int) * curr_size + sizeof(node_t) * std_matrix.columns);
 }
