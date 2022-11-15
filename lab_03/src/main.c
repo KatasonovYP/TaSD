@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <locale.h>
 #include "../inc/structures.h"
 #include "../inc/errors.h"
 #include "../inc/io.h"
@@ -14,22 +15,23 @@
 
 int main()
 {
-    printf("LAB_03\n\n"
-           "This program multiplies a row linked_list by a matrix, processing them\n"
-           "\ta) Using algorithms for processing sparse matrices.\n"
-           "\tb) Using standard matrix processing algorithms.\n\n"
-           "The sparse matrix is stored in two arrays and one linked_list:\n"
-           "\t- A is an array of nonzero elements\n "
-           "\t- JA is an array of column numbers for each element of A\n"
-           "\t-linked_list JA, which contains the index of each first element of the next row in arrays A and JA. "
-           "Would you like to enter the matrix values yourself? [Y/n] \n");
+    setlocale(LC_ALL, "Rus");
+    printf("Лабораторная работа №3. Обработка разреженных матриц.\n\n"
+           "Программа для умножения связного списка строк на матрицу и их обработки.\n"
+           "\tа) Использование алгоритмов по обработки разреженных матриц.\n"
+           "\tб) Использование алгоритмов по обработке обычных матриц.\n\n"
+           "Разреженная матрица содержит 2 массива и 1 связный список:\n"
+           "\t- A - массив ненулевых элементов.\n "
+           "\t- JA - массив индексов каждого элемента из массива A\n"
+           "\t- Cписок IA, который содержит индекс каждого первого элемента следующей строки в массивах A и JA.\n"
+           "Хотите заполнить матрицу самостоятельно? [Y/n] \n");
 
     short rc;
     bool manual_input = 0;
     rc = get_input_mode(&manual_input);
     if (rc == IO_ERROR_INPUT_FROM_KEYBOARD)
     {
-        fprintf(stderr, "Incorrect input.\n");
+        fprintf(stderr, "Некорректный ввод.\n");
         return IO_ERROR_INPUT_FROM_KEYBOARD;
     }
 
@@ -39,22 +41,22 @@ int main()
     rc = get_matrix_sizes(&sparse_matrix, &sparse_vector);
     if (rc == IO_ERROR_INPUT_FROM_KEYBOARD)
     {
-        fprintf(stderr, "Incorrect input format.\n");
+        fprintf(stderr, "ОШИБКА! Некорректный ввод format.\n");
         return IO_ERROR_INPUT_FROM_KEYBOARD;
     }
     if (rc == IO_INVALID_ROWS_NUMBER)
     {
-        fprintf(stderr, "Incorrect rows number.\n");
+        fprintf(stderr, "ОШИБКА! Некорректное число строк.\n");
         return IO_INVALID_ROWS_NUMBER;
     }
     if (rc == IO_INVALID_COLUMNS_NUMBER)
     {
-        fprintf(stderr, "Incorrect columns number.\n");
+        fprintf(stderr, "ОШИБКА! Некорректное число столбцов.\n");
         return IO_INVALID_COLUMNS_NUMBER;
     }
     if (rc == IO_ELEMENTS_LIMIT)
     {
-        fprintf(stderr, "The limit of the number of non-zero elements in the matrix has been exceeded\n");
+        fprintf(stderr, "ОШИБКА! Некорректное количество ненулевых элементов в матрице\n");
         return IO_ELEMENTS_LIMIT;
     }
 
@@ -67,14 +69,14 @@ int main()
     rc = create_matrix(&std_matrix, sparse_matrix.rows, sparse_matrix.columns);
     if (rc == MEMORY_ALLOCATION_ERROR)
     {
-        fprintf(stderr, "Memory allocation error (std matrix creation). \n");
+        fprintf(stderr, "ОШИБКА! Не удалось выделить память под матрицу.\n");
         return MEMORY_ALLOCATION_ERROR;
     }
     rc = create_matrix(&std_vector, sparse_vector.rows, sparse_vector.columns);
     if (rc == MEMORY_ALLOCATION_ERROR)
     {
         free_matrix(std_matrix.matrix);
-        fprintf(stderr, "Memory allocation error (std vector creation).\n");
+        fprintf(stderr, "ОШИБКА! Не удалось выделить память под вектор.\n");
         return MEMORY_ALLOCATION_ERROR;
     }
     rc = create_matrix(&std_result, sparse_result.rows, sparse_result.columns);
@@ -82,7 +84,7 @@ int main()
     {
         free_matrix(std_matrix.matrix);
         free_matrix(std_vector.matrix);
-        fprintf(stderr, "Memory allocation error (std result creation).\n");
+        fprintf(stderr, "ОШИБКА! Не удалось выделить память под результирующую матрицу.\n");
     }
 
     int **memory_manager_list = malloc(sizeof(int *) * 6);
@@ -116,7 +118,7 @@ int main()
         free_matrix(std_matrix.matrix);
         free_matrix(std_vector.matrix);
         free_matrix(std_result.matrix);
-        fprintf(stderr, "Memory allocation error.\n");
+        fprintf(stderr, "Ошибка выделения памяти.\n");
         return MEMORY_ALLOCATION_ERROR;
     }
 
@@ -136,7 +138,7 @@ int main()
         free_matrix(std_matrix.matrix);
         free_matrix(std_vector.matrix);
         free_matrix(std_result.matrix);
-        fprintf(stderr, "Memory allocation error.\n");
+        fprintf(stderr, "Ошибка выделения памяти.\n");
         return MEMORY_ALLOCATION_ERROR;
     }
 
@@ -147,17 +149,17 @@ int main()
     }
     if (rc == IO_ERROR_INPUT_FROM_KEYBOARD)
     {
-        fprintf(stderr, "Incorrect input format.\n");
+        fprintf(stderr, "Некорректный ввод формата.\n");
         return IO_ERROR_INPUT_FROM_KEYBOARD;
     }
     if (rc == IO_INVALID_ROWS_NUMBER)
     {
-        fprintf(stderr, "Incorrect rows number.\n");
+        fprintf(stderr, "Некорректное число строк.\n");
         return IO_INVALID_ROWS_NUMBER;
     }
     if (rc == IO_INVALID_COLUMNS_NUMBER)
     {
-        fprintf(stderr, "Incorrect columns number.\n");
+        fprintf(stderr, "Некорректное число столбцов.\n");
         return IO_INVALID_COLUMNS_NUMBER;
     }
 
@@ -171,25 +173,25 @@ int main()
     rc = source_output(std_matrix, std_vector, 40, 40);
     if (rc == IO_OUTPUT)
     {
-        printf("The source matrices are too big to be show.\n");
+        printf("Размеры матрицы слишком большие, чтобы их показать.\n");
     }
 
     rc = standard_matrix_result_output(std_result, WIDTH);
     if (rc == IO_OUTPUT)
     {
-        printf("The result of calculations of a regular matrix will not be displayed on the screen, "
-               "since it contains more than %d elements.\n", WIDTH);
+        printf("Результат вычислений обычной матрицы не будет отображен на экране,\n"
+               "поскольку он содержит более %d элементов.\n", WIDTH);
     }
 
     rc = sparse_matrix_result_output(sparse_result, WIDTH);
     if (rc == IO_OUTPUT)
     {
-        printf("The result of calculations of a regular matrix will not be displayed on the screen, "
-               "since it contains more than %d elements.\n", WIDTH);
+        printf("Результат вычислений разреженной матрицы не будет отображен на экране,\n"
+               "поскольку он содержит более %d элементов.\n", WIDTH);
     }
     if (rc == SPARSE_MATRIX_IS_EMPTY)
     {
-        printf("\nThe result sparse matrix is empty\n");
+        printf("\nРазреженная матрица пустая\n");
     }
 
     compare_results(std_matrix, sparse_matrix, start, std_end, end, sparse_matrix.curr_size);
