@@ -10,18 +10,21 @@ void range_print()
     puts("-|--------|---------|---------|E-|---|");
 }
 
-void print_result(const number_structure result)
+void print_result(const number_t result)
 {
+    printf("\nРезультат умножения: ");
+
     if (!strcmp("\0", result.mantissa))
     {
-        printf("RESULT: %23s\n", "0.0");
+        printf("%23s", "0.0");
     }
     else if (result.degree >= 0)
     {
-        printf("RESULT: %20c0.%se+%d\n", result.m_sign, result.mantissa, result.degree);
+        printf("%20c0.%se+%d", result.m_sign, result.mantissa, result.degree);
     }
     else
     {
-        printf("RESULT: %20c0.%se%d\n", result.m_sign, result.mantissa, result.degree);
+        printf("%20c0.%se%d", result.m_sign, result.mantissa, result.degree);
     }
+    puts("\n");
 }

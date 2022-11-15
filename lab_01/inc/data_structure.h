@@ -12,6 +12,6 @@ typedef struct
     char mantissa[MAX_MANTISSA * 2];
     int degree;
     short int point_index;
-} number_structure;
+} number_t;
 
 #endif

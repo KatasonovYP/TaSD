@@ -7,7 +7,7 @@
 #include "../inc/check.h"
 #include "../inc/operations.h"
 
-void default_data(number_structure *parsed_number)
+void default_data(number_t *parsed_number)
 {
     parsed_number->m_sign = '+';
     parsed_number->degree = 0;
@@ -29,7 +29,7 @@ int is_not_digit(const char sym)
     return 0;
 }
 
-void get_sign_parse(const char *const raw_number, number_structure *parsed_number, short int *index)
+void get_sign_parse(const char *const raw_number, number_t *parsed_number, short int *index)
 {
     if (is_not_digit(raw_number[*index]))
     {
@@ -38,7 +38,7 @@ void get_sign_parse(const char *const raw_number, number_structure *parsed_numbe
     }
 }
 
-short int parse_mantissa(const char *const raw_number, number_structure *parsed_number, short int *index)
+short int parse_mantissa(const char *const raw_number, number_t *parsed_number, short int *index)
 {
     unsigned short int length = strlen(parsed_number->mantissa);
 
@@ -73,7 +73,7 @@ short int parse_mantissa(const char *const raw_number, number_structure *parsed_
     return parse_mantissa(raw_number, parsed_number, index);
 }
 
-short int parse_degree(const char *const raw_number, number_structure *parsed_number,
+short int parse_degree(const char *const raw_number, number_t *parsed_number,
                        short int *index, char *temp_degree, short int length)
 {
     if (raw_number[*index] == '\0')
@@ -97,7 +97,7 @@ short int parse_degree(const char *const raw_number, number_structure *parsed_nu
     return parse_degree(raw_number, parsed_number, index, temp_degree, length + 1);
 }
 
-short int parse(const char *raw_number, number_structure *parsed_number)
+short int parse(const char *raw_number, number_t *parsed_number)
 {
     short int temp_index = 0, code_error;
 
@@ -122,7 +122,7 @@ short int parse(const char *raw_number, number_structure *parsed_number)
     return 0;
 }
 
-void find_degree(number_structure *const result, int index)
+void find_degree(number_t *const result, int index)
 {
     if (result->mantissa[index] == '+' || result->mantissa[index] == '-')
     {
@@ -160,9 +160,9 @@ unsigned short int final_degree_addition(const char *const mantissa)
     return k;
 }
 
-short post_process(number_structure integer_parsed,
-                   number_structure float_parsed,
-                   number_structure *result_number,
+short post_process(number_t integer_parsed,
+                   number_t float_parsed,
+                   number_t *result_number,
                    short int fl)
 {
     unsigned short int null_cnt_behind = 0, null_cnt_before = 0;

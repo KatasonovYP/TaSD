@@ -26,7 +26,7 @@ short int to_exp(char *raw_int)
     return 0;
 }
 
-void normalization(number_structure *number)
+void normalization(number_t *number)
 {
     short int k = 0;
     short int len = strlen(number->mantissa);
@@ -84,7 +84,7 @@ void discharge_sum(char *result_number, const char *const temp, int len)
 }
 
 
-int mantissa_multiplication(number_structure *int_number, number_structure *float_number, char *result_mantissa)
+int mantissa_multiplication(number_t *int_number, number_t *float_number, char *result_mantissa)
 {
     unsigned short len1 = strlen(int_number->mantissa), len2 = strlen(float_number->mantissa);
     int discharge = 1;
@@ -107,7 +107,7 @@ int mantissa_multiplication(number_structure *int_number, number_structure *floa
 }
 
 
-void get_sign(const number_structure num1, const number_structure num2, number_structure *result)
+void get_sign(const number_t num1, const number_t num2, number_t *result)
 {
     if (num1.m_sign == num2.m_sign)
     {
@@ -119,19 +119,19 @@ void get_sign(const number_structure num1, const number_structure num2, number_s
     }
 }
 
-void get_point_position(const number_structure num1, const number_structure num2, number_structure *result)
+void get_point_position(const number_t num1, const number_t num2, number_t *result)
 {
     result->point_index = num1.point_index + num2.point_index;
 }
 
-void multiplication(number_structure *int_number, number_structure *float_number, number_structure *result_number)
+void multiplication(number_t *int_number, number_t *float_number, number_t *result_number)
 {
     mantissa_multiplication(int_number, float_number, result_number->mantissa);
     get_sign(*int_number, *float_number, result_number);
     get_point_position(*int_number, *float_number, result_number);
 }
 
-void null_round(number_structure *result_number, short int index)
+void null_round(number_t *result_number, short int index)
 {
     if (result_number->mantissa[index] == '0')
     {
@@ -144,7 +144,7 @@ void null_round(number_structure *result_number, short int index)
     }
 }
 
-void rounding(number_structure *number, unsigned short int end_ind, short int flag)
+void rounding(number_t *number, unsigned short int end_ind, short int flag)
 {
     unsigned short int int_numb = number->mantissa[end_ind + 1] - '0';
     unsigned short int int_numb_cur = number->mantissa[end_ind] - '0';

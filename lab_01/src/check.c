@@ -163,7 +163,7 @@ int result_of_mantissa_parsing_check(const char *const mantissa)
     return 0;
 }
 
-short int null_check(const number_structure result_number)
+short int null_check(const number_t result_number)
 {
     unsigned short int len = strlen(result_number.mantissa);
 
@@ -178,7 +178,7 @@ short int null_check(const number_structure result_number)
     return 1;
 }
 
-short int integer_e_check(number_structure integer)
+short int integer_e_check(number_t integer)
 {
 
     unsigned short int counter1 = 0;

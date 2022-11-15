@@ -9,9 +9,9 @@ short int check_sign(char item);
 
 int result_of_mantissa_parsing_check(const char *mantissa);
 
-short int null_check(number_structure result_number);
+short int null_check(number_t result_number);
 
-short int integer_e_check(number_structure integer);
+short int integer_e_check(number_t integer);
 
 int check_expon(char *num, short int cur_len, short int len);
 
