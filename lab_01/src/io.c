@@ -5,9 +5,9 @@
 
 void range_print()
 {
-    printf("\n%s %29s\n", "mantissa", "degree");
-    printf("%2d %9d %9d %9d %1d %3d\n", 1, 10, 20, 30, 1, 5);
-    printf("-|--------|---------|---------|E-|---|\n");
+    puts(" Мантисса                        степень");
+    puts(" 1        10        20        30 1   5");
+    puts("-|--------|---------|---------|E-|---|");
 }
 
 void print_result(const number_structure result)
