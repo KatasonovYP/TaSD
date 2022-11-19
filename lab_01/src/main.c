@@ -29,16 +29,14 @@ int main()
     range_print();
     if (scanf("%50s", integer_raw) != 1)
     {
-        printf("ошибка: некорректная длина числа\n");
-        return INTEGER_INPUT_ERROR;
+        return print_error(LEN_INPUT_ERROR);
     }
 
     short int rc = integer_check(integer_raw);
     short int fl = 0;
     if (rc == 1)
     {
-        printf("ошибка: неверный ввод целого числа\n");
-        return rc;
+        return print_error(INTEGER_INPUT_ERROR);
     }
 
     // parsing of integer number
@@ -47,28 +45,20 @@ int main()
         rc = to_exp(integer_raw);
         if (rc == -1)
         {
-            printf("ошибка: приведении в экпоненциальную форму\n");
-            return INTEGER_TO_EXPON_ERROR;
+            return print_error(INTEGER_TO_EXPON_ERROR);
         }
     }
 
     rc = parse(integer_raw, &integer_n);
-    if (rc == PARSING_MANTISSA_ERROR)
+    if (rc != ERR_OK)
     {
-        printf("ошибка: длина мантиссы должна быть меньше 30 символов\n");
-        return rc;
-    }
-    if (rc == PARSING_DEGREE_OUT_RANGE)
-    {
-        printf("ошибка: длина степени должна быть менее 5 символов\n");
-        return rc;
+        return print_error(rc);
     }
 
     rc = integer_e_check(integer_n);
     if (rc == -1)
     {
-        printf("ошибка: Введенное вами число не является целым числом");
-        return INTEGER_WRONG_FORMAT;
+        return print_error(INTEGER_WRONG_FORMAT);
     }
 
     //reading of the second number
@@ -76,35 +66,13 @@ int main()
     range_print();
     if (scanf("%50s", float_raw) != 1)
     {
-        printf("ERROR: Некорректная длина числа\n");
-        return FLOAT_INPUT_ERROR;
+        return print_error(FLOAT_INPUT_ERROR);
     }
 
     rc = input_check(float_raw);
-    if (rc != 0)
+    if (rc != ERR_OK)
     {
-        if (rc == INPUT_FORBIDDEN_SYMBOL)
-        {
-            printf("ошибка: запрещенный символ\n");
-        }
-        else if (rc == INPUT_E_ERROR)
-        {
-            printf("ошибка: отсутствует символ \"E\"\n");
-        }
-
-        else if (rc == INPUT_SIGN_ERROR)
-        {
-            printf("ошибка: лишний знак +/-\n");
-        }
-        else if (rc == INPUT_DOTS_IN_DEGREE)
-        {
-            printf("ошибка: действительное число в степени\n");
-        }
-        else if (rc == INPUT_DOTS_IN_MANTISSA)
-        {
-            printf("ошибка: лишняя точка в мантиссе\n");
-        }
-        return rc;
+        return print_error(rc);
     }
 
     if (check_expon(float_raw, 0, strlen(float_raw)))
@@ -112,8 +80,7 @@ int main()
         rc = to_exp(float_raw);
         if (rc == -1)
         {
-            printf("ошибка: при приведении к экспоненциальной форме\n");
-            return INTEGER_TO_EXPON_ERROR;
+            return print_error(INTEGER_TO_EXPON_ERROR);
         }
     }
 

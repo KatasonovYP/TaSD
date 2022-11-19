@@ -1,3 +1,11 @@
+#ifndef __ERRORS_H__
+#define __ERRORS_H__
+
+#define ERR_OK 0
+#define ERR_UNKNOWN -1
+
+#define LEN_INPUT_ERROR -10
+
 #define INTEGER_INPUT_ERROR -20
 #define INTEGER_WRONG_FORMAT -21
 #define INTEGER_TO_EXPON_ERROR -23
@@ -15,4 +23,6 @@
 #define PARSING_RANGE_ERROR -43
 #define PARSING_OVERFLOW -44
 
+int print_error(int error);
 
+#endif // #ifndef __ERRORS_H__
