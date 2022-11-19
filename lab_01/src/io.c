@@ -16,7 +16,7 @@ void print_result(const number_t result)
 
     if (!strcmp("\0", result.mantissa))
     {
-        printf("%23s", "0.0");
+        printf("%23s", "0");
     }
     else if (result.degree >= 0)
     {
