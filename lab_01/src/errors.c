@@ -19,11 +19,11 @@ int print_error(int error)
         break;
 
     case PARSING_MANTISSA_ERROR:
-        puts("длина мантиссы должна быть меньше 30 символов");
+        puts("длина мантиссы должна быть меньше 30 цифр");
         break;
 
     case PARSING_DEGREE_OUT_RANGE:
-        puts("длина степени должна быть менее 5 символов");
+        puts("длина степени должна быть менее 5 цифр");
         break;
 
     case INTEGER_WRONG_FORMAT:

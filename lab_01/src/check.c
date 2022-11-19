@@ -89,6 +89,9 @@ short int check_sign(const char item)
 
 short integer_check(char *integer_raw)
 {
+    if (integer_raw[0] != '+' && integer_raw[0] != '-')
+        return 1;
+    
     for (size_t i = 1; i < strlen(integer_raw); i++)
     {
         if (!isdigit(integer_raw[i]))

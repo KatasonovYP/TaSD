@@ -15,7 +15,8 @@ int main()
     char integer_raw[MAX_RAW_LEN] = {'\0'}, float_raw[MAX_RAW_LEN] = {'\0'};
     number_t integer_n, float_n, result_n;
     memset(result_n.mantissa, '0', sizeof(result_n.mantissa));
-
+    printf("Лабораторная работа №1. Длинная арифметика.\n\n"
+            "Программа для умножения целого числа на действительное\n\n");
     printf("Правила ввода:\n"
            "\t- Мантисса\n"
            "\t\t- Мантисса должна иметь знак\n"
@@ -88,12 +89,12 @@ int main()
     rc = parse(float_raw, &float_n);
     if (rc == PARSING_MANTISSA_ERROR)
     {
-        printf("ошибка: длина мантиссы должна быть меньше 30 символов\n");
+        printf("ошибка: длина мантиссы более 30 цифр\n");
         return rc;
     }
     if (rc == PARSING_DEGREE_OUT_RANGE)
     {
-        printf("ошибка: длина степени должна быть менее 5 символов\n");
+        printf("ошибка: длина степени более 5 цифр\n");
         return rc;
     }
 
@@ -119,13 +120,13 @@ int main()
     rc = post_process(integer_n, float_n, &result_n, fl);
     if (rc == PARSING_OVERFLOW)
     {
-        printf("ВНИМАНИЕ: длина мантиссы больше 30 символов, результат был округлен.\n");
+        // printf("ВНИМАНИЕ: длина мантиссы больше 30 цифр, результат был округлен.\n");
         rounding(&result_n, MAX_MANTISSA - 3, 0);
         result_n.mantissa[MAX_MANTISSA - 2] = '\0';
     }
     if (rc == PARSING_RANGE_ERROR)
     {
-        printf("ошибка: степень числа результата длиннее 5 символов.\n");
+        printf("ошибка: степень числа результата длиннее 5 цифр.\n");
         return PARSING_OVERFLOW;
     }
 
