@@ -76,7 +76,7 @@ unit: build_tests debug_unit run_unit
 clean_valgrind_info:
 	find ./valgrind_info -type f -name '*.txt' -delete
 	
-func: clean_valgrind_info debug app.exe run_func
+func: build_tests clean_valgrind_info debug app.exe run_func
 
 run_func:
 	./func_tests/scripts/func_tests.sh -e -v
