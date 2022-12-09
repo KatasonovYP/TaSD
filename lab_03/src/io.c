@@ -112,6 +112,11 @@ short matrix_manual_input(matrix_t *matrix, const int size)
             return IO_INVALID_COLUMNS_NUMBER;
         }
 
+        if (matrix->matrix[row][column] || numb == 0)
+        {
+            return IO_ERROR_VALUE_EXIST;
+        }
+
         matrix->matrix[row][column] = numb;
     }
 

@@ -162,6 +162,11 @@ int main()
         fprintf(stderr, "Некорректное число столбцов.\n");
         return IO_INVALID_COLUMNS_NUMBER;
     }
+    if (rc == IO_ERROR_VALUE_EXIST)
+    {
+        fprintf(stderr, "Ячейка уже занята, либо введен ноль в качестве ненулевого значения.\n");
+        return IO_INVALID_COLUMNS_NUMBER;
+    }
 
     uint64_t start = tick();
     multiplication(&std_matrix, &std_vector, &std_result);
