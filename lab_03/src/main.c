@@ -180,6 +180,8 @@ int main()
     {
         printf("Размеры матрицы слишком большие, чтобы их показать.\n");
     }
+    
+    source_sparse_output(std_matrix);
 
     rc = standard_matrix_result_output(std_result, WIDTH);
     if (rc == IO_OUTPUT)

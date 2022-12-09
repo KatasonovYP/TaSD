@@ -221,6 +221,8 @@ void source_sparse_output(matrix_t matrix)
         rows[i + 1] = sparse_len;
     }
 
+    printf("\n\nРазреженная матрица\n");
+
     printf("Массив значений:\n");
     for (int i = 0; i < sparse_len; i++)
     {
@@ -236,6 +238,7 @@ void source_sparse_output(matrix_t matrix)
     {
         printf("%d ", rows[i]);
     }
+    printf("\n\n");
 }
 
 short source_output(matrix_t matrix, matrix_t vector, int width, int height)
@@ -260,9 +263,6 @@ short source_output(matrix_t matrix, matrix_t vector, int width, int height)
         }
         printf("\n");
     }
-
-    printf("\n\nРазреженная матрица\n");
-    source_sparse_output(matrix);
 
     printf("\n\n");
     return 0;

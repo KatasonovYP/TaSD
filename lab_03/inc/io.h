@@ -9,6 +9,8 @@ short matrix_filling(matrix_t *matrix, sparse_matrix_t *sparse_matrix, bool manu
 
 short source_output(matrix_t matrix, matrix_t vector, int width, int height);
 
+void source_sparse_output(matrix_t matrix);
+
 short standard_matrix_result_output(matrix_t matrix, int width);
 
 short sparse_matrix_result_output(sparse_matrix_t matrix, int width);
