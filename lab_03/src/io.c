@@ -259,10 +259,14 @@ void compare_results(matrix_t std_matrix, sparse_matrix_t sparse_matrix,
 
     printf("\n\nМатрица %d x %d. Заполненность ~: %.1lf%% / 100%%\n",
            std_matrix.rows, std_matrix.columns, amount);
-    printf("\nВремя умножения обычной матрицы: %ld тиков\n"
-            "Время умножения разреженной матрицы: %ld тиков\n",
+    printf("\nВремя умножения обычной матрицы: %ld наносек\n"
+            "Время умножения разреженной матрицы: %ld наносек\n",
            std_end - std_start, sparse_end - std_end);
-    printf("\nИспользование памяти:\nОбычная матрица: %zu\nРазреженная матрица: %zu\n",
-           sizeof(int) * std_matrix.rows * std_matrix.columns,
-           2 * sizeof(int) * curr_size + sizeof(node_t) * std_matrix.columns);
+    printf("\nИспользование памяти:\nОбычная матрица: %zu байт\nРазреженная матрица: %zu байт\n",
+           sizeof(int) * std_matrix.rows * std_matrix.columns 
+           + sizeof(matrix_t) 
+           + sizeof(int *) * std_matrix.rows,
+           2 * sizeof(int) * curr_size
+           + sizeof(node_t) * std_matrix.columns
+           + sizeof(sparse_matrix_t));
 }
