@@ -84,7 +84,6 @@ short get_matrix_sizes(sparse_matrix_t *matrix, sparse_matrix_t *vector)
     return 0;
 }
 
-
 short matrix_manual_input(matrix_t *matrix, const int size)
 {
     for (int i = 0; i < size; i++)
@@ -148,7 +147,6 @@ short vector_manual_filling(matrix_t *matrix, const int size)
     return 0;
 }
 
-
 short matrix_filling(matrix_t *matrix, sparse_matrix_t *sparse_matrix, const bool manual_input)
 {
     if (manual_input == true)
@@ -181,6 +179,60 @@ short matrix_filling(matrix_t *matrix, sparse_matrix_t *sparse_matrix, const boo
     return 0;
 }
 
+int get_count_non_zero(matrix_t matrix)
+{
+    int count_non_zero = 0;
+    for (int i = 0; i < matrix.rows; i++)
+    {
+        for (int j = 0; j < matrix.columns; j++)
+        {
+            if (matrix.matrix[i][j])
+            {
+                ++count_non_zero;
+            }
+        }
+    }
+    return count_non_zero;
+}
+
+void source_sparse_output(matrix_t matrix)
+{
+    int *values = malloc(sizeof(int) * get_count_non_zero(matrix));
+    int *cols = malloc(sizeof(int) * get_count_non_zero(matrix));
+    int *rows = calloc(sizeof(int), (matrix.rows + 1));
+    int sparse_len = 0;
+
+    for (int i = 0; i < matrix.rows; i++)
+    {
+        for (int j = 0; j < matrix.columns; j++)
+        {
+            if (matrix.matrix[i][j])
+            {
+                values[sparse_len] = matrix.matrix[i][j];
+                cols[sparse_len] = j;
+                ++sparse_len;
+            }
+        }
+        rows[i + 1] = sparse_len;
+    }
+
+    printf("Массив значений:\n");
+    for (int i = 0; i < sparse_len; i++)
+    {
+        printf("%d ", values[i]);
+    }
+    printf("\nМассив индексов столбцов:\n");
+    for (int i = 0; i < sparse_len; i++)
+    {
+        printf("%d ", cols[i]);
+    }
+    printf("\nМассив индексов строк:\n");
+    for (int i = 0; i < matrix.rows + 1; i++)
+    {
+        printf("%d ", rows[i]);
+    }
+}
+
 short source_output(matrix_t matrix, matrix_t vector, int width, int height)
 {
     if (matrix.columns > width || matrix.rows > height)
@@ -203,6 +255,9 @@ short source_output(matrix_t matrix, matrix_t vector, int width, int height)
         }
         printf("\n");
     }
+
+    printf("\n\nРазреженная матрица\n");
+    source_sparse_output(matrix);
 
     printf("\n\n");
     return 0;
@@ -254,19 +309,15 @@ short sparse_matrix_result_output(sparse_matrix_t matrix, int width)
 void compare_results(matrix_t std_matrix, sparse_matrix_t sparse_matrix,
                      int64_t std_start, int64_t std_end, int64_t sparse_end, int curr_size)
 {
-    double one_percent = (double) (std_matrix.rows) * std_matrix.columns / 100;
+    double one_percent = (double)(std_matrix.rows) * std_matrix.columns / 100;
     double amount = sparse_matrix.curr_size / one_percent;
 
     printf("\n\nМатрица %d x %d. Заполненность ~: %.1lf%% / 100%%\n",
            std_matrix.rows, std_matrix.columns, amount);
     printf("\nВремя умножения обычной матрицы: %ld наносек\n"
-            "Время умножения разреженной матрицы: %ld наносек\n",
+           "Время умножения разреженной матрицы: %ld наносек\n",
            std_end - std_start, sparse_end - std_end);
     printf("\nИспользование памяти:\nОбычная матрица: %zu байт\nРазреженная матрица: %zu байт\n",
-           sizeof(int) * std_matrix.rows * std_matrix.columns 
-           + sizeof(matrix_t) 
-           + sizeof(int *) * std_matrix.rows,
-           2 * sizeof(int) * curr_size
-           + sizeof(node_t) * std_matrix.columns
-           + sizeof(sparse_matrix_t));
+           sizeof(int) * std_matrix.rows * std_matrix.columns + sizeof(matrix_t) + sizeof(int *) * std_matrix.rows,
+           2 * sizeof(int) * curr_size + sizeof(node_t) * std_matrix.columns + sizeof(sparse_matrix_t));
 }
